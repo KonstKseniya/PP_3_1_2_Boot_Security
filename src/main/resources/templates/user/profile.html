@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<header>
+    <p th:text="'id your account: ' + ${user.getId()}"></p>
+    <h3 th:text="'Hello, ' + ${user.getUsername()} + '!'"></h3>
+</header>
+<main>
+    <p th:text="'email: ' + ${user.getEmail()}"></p>
+    <p th:text="'bio: ' + ${user.getBio()}"></p>
+    <p th:each="role : ${user.getRoles()}" th:text="'role: ' + ${role.getRoleName()}"></p>
+</main>
+<footer>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">logout</button>
+    </form>
+</footer>
+</body>
+</html>

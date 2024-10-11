@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+<header>
+    <a th:href="@{/admin/edit_panel}">back</a>
+    <h3>Edit</h3>
+</header>
+<main>
+    <form th:method="POST" th:action="@{/admin/edit_panel/edit_user}" th:object="${users}">
+        <fieldset>
+            <legend>form:</legend>
+            <label for="id">1: </label>
+            <input readonly type="text" th:field="*{id}" id="id"/>
+            <br/>
+            <label for="firstName">2: </label>
+            <input type="text" th:field="*{username}" id="firstName"/>
+            <br/>
+            <label for="password">3: </label>
+            <input type="password" th:field="*{password}" id="password"/>
+            <br/>
+            <label for="email">4: </label>
+            <input type="text" th:field="*{email}" id="email"/>
+            <br/>
+            <label for="bio">4: </label>
+            <input type="text" th:field="*{bio}" id="bio"/>
+            <br>
+            <br>
+            <div th:each="role : ${roles}">
+                <label>
+                    <input type="checkbox"
+                           th:id="'role_' + ${role.id}"
+                           th:name="roles"
+                           th:value="${role.id}"
+                           th:checked="${users.roles.contains(role)}"/>
+                </label>
+                <label th:for="'role_' + ${role.id}" th:text="${role.getRoleName()}"></label>
+            </div>
+        </fieldset>
+        <br/>
+        <input type="submit" value="confirm"/>
+    </form>
+    <br>
+</main>
+<footer>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">logout</button>
+    </form>
+</footer>
+</body>
+</html>

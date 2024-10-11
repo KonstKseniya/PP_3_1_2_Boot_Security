@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create new user</title>
+</head>
+<body>
+<header>
+  <a th:href="@{/admin/edit_panel}">back</a>
+  <h3>Create</h3>
+</header>
+<main>
+  <form th:method="POST" th:action="@{/admin/edit_panel/new_user}" th:object="${users}">
+    <fieldset>
+      <legend>form:</legend>
+      <label for="username">1: </label>
+      <input type="text" th:field="*{username}" id="username" required placeholder="your username"/>
+      <br/>
+      <label for="password">2: </label>
+      <input type="password" th:field="*{password}" id="password" required placeholder="your pass"/>
+      <br/>
+      <label for="email">3: </label>
+      <input type="text" th:field="*{email}" id="email" required placeholder="your email"/>
+      <br/>
+      <label for="bio">3: </label>
+      <input type="text" th:field="*{bio}" id="bio" placeholder="your bio"/>
+      <br>
+      <br>
+      <div>
+        <div th:each="role, iterStat : ${roles}">
+          <label>
+            <input type="checkbox"
+                   th:id="'role_' + ${iterStat.index}"
+                   th:name="roles"
+                   th:value="${role.id}"
+                   th:checked="${users.roles != null && users.roles.contains(role)}"/>
+          </label>
+          <label th:for="'role_' + ${iterStat.index}" th:text="${role.getRoleName()}"></label>
+        </div>
+      </div>
+    </fieldset>
+    <br/>
+    <input type="submit" value="confirm"/>
+  </form>
+  <br>
+</main>
+<footer>
+  <form th:action="@{/logout}" method="post">
+    <button type="submit">logout</button>
+  </form>
+</footer>
+</body>
+</html>
